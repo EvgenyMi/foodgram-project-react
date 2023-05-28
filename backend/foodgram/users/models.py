@@ -6,20 +6,32 @@ User = get_user_model()
 
 
 class Subscription(models.Model):
-    subscriber = models.ForeignKey(User, on_delete=models.CASCADE,
-                                   related_name='subscriptions', verbose_name='Подписчик')
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='subscribers', verbose_name='Автор')
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='subscriber',
+        verbose_name='Подписчик',
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='following',
+        verbose_name='Автор',
+    )
 
     class Meta:
         verbose_name = 'подписка'
-        verbose_name_plural = 'Подписки'
+        verbose_name_plural = 'подписки'
         constraints = (
-            models.CheckConstraint(check=~models.Q(
-                subscriber=models.F('author')), name='no_self_subscribe'),
+            models.CheckConstraint(
+                check=~models.Q(user=models.F('author')),
+                name='no_self_following'
+            ),
             models.UniqueConstraint(
-                fields=('subscriber', 'author'), name='unique_subscription')
+                fields=('user', 'author'),
+                name='unique_subscription'
+            )
         )
 
     def __str__(self):
-        return f'Подписка {self.subscriber} на {self.author}'
+        return f'{self.user} подписан на {self.author}'
