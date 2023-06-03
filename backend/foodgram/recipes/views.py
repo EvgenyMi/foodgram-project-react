@@ -96,4 +96,3 @@ class RecipeViewSet(viewsets.ModelViewSet):
         response = HttpResponse(grocery_list_text, content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename=grocery_list.txt'
         return response
-
