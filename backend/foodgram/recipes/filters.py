@@ -22,11 +22,11 @@ class RecipeFilter(rest_framework.FilterSet):
         to_field_name='slug',
     )
     is_favorited = rest_framework.ChoiceFilter(
-        options=OPTIONS,
+        choices=OPTIONS,
         method='is_favorited_method'
     )
     is_in_shopping_cart = rest_framework.ChoiceFilter(
-        options=OPTIONS,
+        choices=OPTIONS,
         method='is_in_shopping_cart_method'
     )
 

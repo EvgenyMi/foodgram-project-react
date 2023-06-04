@@ -19,7 +19,7 @@ class Command(BaseCommand):
             print('Не указан путь к файлу!')
             return
 
-        with open(file_path, 'r') as csv_file:
+        with open(file_path, 'r', encoding='utf-8-sig') as csv_file:
             reader = csv.reader(csv_file)
 
             for row in reader:
