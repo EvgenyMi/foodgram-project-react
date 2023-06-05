@@ -43,10 +43,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         if self.request.method == 'DELETE':
-            if not Favorite.objects.filter(user=user, recipe=recipe).exists():
-                raise exceptions.ValidationError(
-                    'Рецепт не добавлен в избранное')
-
             favorite = get_object_or_404(Favorite, user=user, recipe=recipe)
             favorite.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)

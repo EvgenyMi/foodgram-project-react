@@ -8,9 +8,8 @@ from .models import Favorite, Recipe, RecipeIngredient, ShoppingList
 from ingredients.models import Ingredient
 from tags.models import Tag
 from tags.serializers import TagSerializer
+from users.models import User
 from users.serializers import CustomUserSerializer
-
-User = get_user_model()
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
@@ -101,15 +100,16 @@ class CreateUpdateRecipeSerializer(serializers.ModelSerializer):
         recipe = Recipe.objects.create(author=author, **validated_data)
         recipe.tags.set(tags)
 
+        recipe_ingredients = []
         for ingredient in ingredients:
             amount = ingredient['amount']
             ingredient = get_object_or_404(Ingredient, pk=ingredient['id'])
+            recipe_ingredient = RecipeIngredient(
+                recipe=recipe, ingredient=ingredient, amount=amount)
+            recipe_ingredients.append(recipe_ingredient)
 
-            RecipeIngredient.objects.create(
-                recipe=recipe,
-                ingredient=ingredient,
-                amount=amount
-            )
+        RecipeIngredient.objects.bulk_create(recipe_ingredients)
+
         return recipe
 
     def update(self, instance, validated_data):
