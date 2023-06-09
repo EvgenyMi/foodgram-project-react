@@ -51,6 +51,7 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
 
+
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(
         Recipe,
@@ -72,7 +73,8 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return f'{self.recipe}: {self.ingridient} в количестве {self.amount}'
-    
+
+
 class RecipeTag(models.Model):
     recipe = models.ForeignKey(
         Recipe,
@@ -90,7 +92,8 @@ class RecipeTag(models.Model):
 
     def __str__(self):
         return f'Рецепту {self.recipe} присвоен тег {self.tag}'
-    
+
+
 class Favorite(models.Model):
     user = models.ForeignKey(
         User,
@@ -117,7 +120,7 @@ class Favorite(models.Model):
 
     def __str__(self):
         return f'{self.user} добавил в избранное рецепт {self.recipe}'
-    
+
 
 class ShoppingList(models.Model):
     user = models.ForeignKey(

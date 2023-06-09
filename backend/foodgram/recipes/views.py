@@ -58,32 +58,32 @@ class RecipeViewSet(viewsets.ModelViewSet):
             if ShoppingList.objects.filter(user=user, recipe=recipe).exists():
                 raise exceptions.ValidationError(
                     'Ингредиенты рецепта уже добавлены в список покупок')
-            
+
             ShoppingList.objects.create(user=user, recipe=recipe)
             serializer = BriefRecipeSerializer(
                 recipe, context={'request': request})
-            
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
         if self.request.method == 'DELETE':
             if not ShoppingList.objects.filter(user=user, recipe=recipe).exists():
                 raise exceptions.ValidationError(
                     'Нельзя удалить недобавенные ингредиенты рецепта')
-            
+
             shopping_list = get_object_or_404(ShoppingList, user=user, recipe=recipe)
             shopping_list.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        
+
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-    
+
     @action(detail=False, methods=('get',), permission_classes=(IsAuthenticated,))
     def loading_shopping_cart(self, request):
         shopping_cart = ShoppingList.objects.filter(user=request.user)
         recipes = [item.recipe.id for item in shopping_cart]
         grocery_list = RecipeIngredient.objects.filter(
             recipes__in=recipes
-            ).values('ingredient').annotate(amount=Sum('amount'))
-        
+        ).values('ingredient').annotate(amount=Sum('amount'))
+
         grocery_list_text = 'Ваш список покупок для приготовления по рецептам \n\n'
         for item in grocery_list:
             ingredient = Ingredient.objects.get(pk=item['ingredient'])

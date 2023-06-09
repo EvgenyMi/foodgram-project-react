@@ -14,7 +14,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('Начат импорт данных из .csv файла в модель Ingredient.')
         file_path = options.get('path') + 'ingredients.csv'
-        
+
         if not options['path']:
             print('Не указан путь к файлу!')
             return

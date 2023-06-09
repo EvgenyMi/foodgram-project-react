@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 from django.shortcuts import get_object_or_404
 from drf_extra_fields.fields import Base64ImageField
@@ -8,7 +7,6 @@ from .models import Favorite, Recipe, RecipeIngredient, ShoppingList
 from ingredients.models import Ingredient
 from tags.models import Tag
 from tags.serializers import TagSerializer
-from users.models import User
 from users.serializers import CustomUserSerializer
 
 
