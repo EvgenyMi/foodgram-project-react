@@ -8,7 +8,8 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv(
+    'SECRET_KEY', 'v^7=ld=chxycltker)3f5_u&d2^(l9lngz7q3p(5vqqngo=9^x')
 
 if not SECRET_KEY:
     print('Ошибка, нет SECRET_KEY в settings.py')
