@@ -64,9 +64,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             sudo docker-compose stop
-            sudo docker-compose rm -f web frontend
+            sudo docker-compose rm -f backend frontend
             sudo docker image rm evgenymin/foodgram_backend:latest evgenymin/foodgram_frontend:latest
-            sudo docker-compose rm -f web frontend
+            sudo docker-compose pull -f backend frontend
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
