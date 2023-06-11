@@ -85,7 +85,7 @@ class CreateUpdateRecipeSerializer(serializers.ModelSerializer):
     tags = serializers.PrimaryKeyRelatedField(
         queryset=Tag.objects.all(), many=True)
     image = Base64ImageField()
-    ingreients = CreateUpdateRecipeIngredientSerializer(many=True)
+    ingredients = CreateUpdateRecipeIngredientSerializer(many=True)
     cooking_time = serializers.IntegerField(
         validators=(MinValueValidator(
             1, message='Укажите время >0'),)

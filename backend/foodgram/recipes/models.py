@@ -58,7 +58,7 @@ class RecipeIngredient(models.Model):
         on_delete=models.CASCADE,
         verbose_name='рецепт'
     )
-    ingridient = models.ForeignKey(
+    ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.PROTECT,
         verbose_name='ингредиент'
@@ -72,7 +72,7 @@ class RecipeIngredient(models.Model):
         verbose_name = 'ингредиент в рецепте'
 
     def __str__(self):
-        return f'{self.recipe}: {self.ingridient} в количестве {self.amount}'
+        return f'{self.recipe}: {self.ingredient} в количестве {self.amount}'
 
 
 class RecipeTag(models.Model):
