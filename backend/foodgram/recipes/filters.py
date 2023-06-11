@@ -30,7 +30,7 @@ class RecipeFilter(rest_framework.FilterSet):
         method='is_in_shopping_cart_method'
     )
 
-    def is_favoreted_method(self, queryset, name, value):
+    def is_favorited_method(self, queryset, name, value):
         if self.request.user.is_anonymous:
             return Recipe.objects.none()
 
