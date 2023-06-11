@@ -16,7 +16,7 @@ if not SECRET_KEY:
     sys.exit()
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['158.160.18.252', 'localhost', '127.0.0.1', '*']
 
