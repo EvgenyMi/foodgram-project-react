@@ -4,6 +4,7 @@ from django.db import models
 
 from ingredients.models import Ingredient
 from tags.models import Tag
+from .validators import validate_recipe_name
 
 User = get_user_model()
 
@@ -16,6 +17,7 @@ class Recipe(models.Model):
     )
     name = models.CharField(
         max_length=200,
+        validators=[validate_recipe_name],
         verbose_name='Название рецепта',
     )
     image = models.ImageField(
